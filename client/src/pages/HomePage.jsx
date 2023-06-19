@@ -1,13 +1,13 @@
 
 import { useEffect, useState } from 'react';
 import carService from '../services/car.service'
+import CarList from '../components/CarList'
 
 
 function HomePage() {
     const [cars, setCars] = useState([])
 
     const getCars = async () => {
-        debugger;
         try {
             const res = await carService.getAll()
             setCars(res.data)
@@ -21,13 +21,12 @@ function HomePage() {
     }, [])
     const renderCars = () => {
         return (
-            cars.map((car) => <p>{car.name}</p>)
+            cars.map((car) => <div key={car._id}><CarList {...car}/></div>)
         )
     }
 
     return (
         <div className="App">
-<p>hola</p>
             {renderCars()}
 
         </div>
