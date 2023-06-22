@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import carService from '../services/car.service'
 import CarDetails from '../components/CarDetails'
-import { Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 
 function CarDetail() {
     const { id } = useParams();
@@ -24,7 +24,7 @@ function CarDetail() {
     return (
        <Container>
         {
-            car ? <CarDetails {...car}/> : <p>No hay datos...</p>
+            car ? <CarDetails {...car} getCarDetails={getCarDetails}/> : <p>No hay datos...</p>
         }
        </Container>
     )

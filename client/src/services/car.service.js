@@ -16,11 +16,11 @@ class CarService {
     }
 
     create(data) {
-        return this.api.post("/")
+        return this.api.post("/", data)
     }
 
-    update(data, id) {
-        return this.api.put(`/${id}`)
+    update(id, data) {
+        return this.api.put(`/${id}`, data)
     }
 
     delete(id) {
