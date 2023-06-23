@@ -1,33 +1,31 @@
-import axios from 'axios'
+import axios from "axios";
+import apiInstace from "./apiInstance";
 
 class CarService {
-    constructor() {
-        this.api = axios.create({
-            baseURL: `http://localhost:5005/api/cars`
-        })
-    }
+  constructor() {
+    this.api = apiInstace;
+  }
 
-    getAll() {
-        return this.api.get('/')
-    }
+  getAll() {
+    return this.api.get("/cars");
+  }
 
-    getOne(id) {
-        return this.api.get(`/${id}`)
-    }
+  getOne(id) {
+    return this.api.get(`/cars/${id}`);
+  }
 
-    create(data) {
-        return this.api.post("/", data)
-    }
+  create(data) {
+    return this.api.post("/cars", data);
+  }
 
-    update(id, data) {
-        return this.api.put(`/${id}`, data)
-    }
+  update(id, data) {
+    return this.api.put(`/cars/${id}`, data);
+  }
 
-    delete(id) {
-        return this.api.delete(`/${id}`)
-    }
-
+  delete(id) {
+    return this.api.delete(`/cars/${id}`);
+  }
 }
 
-const carService = new CarService()
+const carService = new CarService();
 export default carService;

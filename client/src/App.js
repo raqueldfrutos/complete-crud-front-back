@@ -6,11 +6,13 @@ import CarDetail from "./pages/CarDetail"
 
 
 function App() {
-  return <Routes>
+  return ( 
+  
+  <Routes>
     <Route path="/" element={<HomePage />}/>
     <Route path="/:id" element={<CarDetail />}/>
   </Routes>
-
-}
+  
+  )}
 
 export default App;
