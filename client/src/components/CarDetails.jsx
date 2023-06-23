@@ -1,31 +1,45 @@
-import { useState } from 'react'
-import carService from '../services/car.service'
-import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom'
+import carService from "../services/car.service";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
-function CarDetails({ _id, name, brand, engine, color, getCarDetails }) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [carUpdated, setCarUpdated] = useState({
-    name,
-    brand,
-    engine,
-    color
-  })
+function CarDetails() {
+  const [isEditing, setIsEditing] = useState(false);
+  const { id } = useParams();
+  const [car, setCar] = useState([]);
+  const {name, brand, engine, color} = car;
 
-  const handleChange = e => {
-    setCarUpdated({
-      [e.targe.name]: e.target.value
-    })
-  }
-
-  const handleEdit = async e => {
-    e.preventDefault()
+  const getCarDetails = async () => {
     try {
-      await carService.update(_id, carUpdated)
-      getCarDetails()
+      const res = await carService.getOne(id);
+      setCar(res.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    getCarDetails();
+  }, [id]);
+
+  console.log(car);
+
+  const handleChange = (e) => {
+    setCar({
+      ...car,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      await carService.update(id, car);
+      getCarDetails();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container>
@@ -35,52 +49,52 @@ function CarDetails({ _id, name, brand, engine, color, getCarDetails }) {
           <h2>Brand: {brand}</h2>
           <p>Engine: {engine}</p>
           <p>Color: {color}</p>
-          <Button className='button' onClick={() => setIsEditing(!isEditing)}>
+          <Button className="button" onClick={() => setIsEditing(!isEditing)}>
             Edit
           </Button>
         </Col>
         <Col>
           {isEditing ? (
             <Container>
-              <Form as='form' onSubmit={handleEdit}>
-                <Form.Group className='mb-3' controlId='formName'>
+              <Form as="form" onSubmit={handleEdit}>
+                <Form.Group className="mb-3" controlId="formName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
-                    name='name'
-                    value={carUpdated.name}
-                    placeholder='Name'
+                    name="name"
+                    value={name}
+                    placeholder="Name"
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='formBrand'>
+                <Form.Group className="mb-3" controlId="formBrand">
                   <Form.Label>Brand</Form.Label>
                   <Form.Control
-                    name='brand'
-                    value={carUpdated.brand}
-                    placeholder='Brand'
+                    name="brand"
+                    value={brand}
+                    placeholder="Brand"
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='formColor'>
+                <Form.Group className="mb-3" controlId="formColor">
                   <Form.Label>Color</Form.Label>
                   <Form.Control
-                    name='color'
-                    value={carUpdated.color}
-                    placeholder='Color'
+                    name="color"
+                    value={color}
+                    placeholder="Color"
                     onChange={handleChange}
                   />
                 </Form.Group>
                 <Form.Select
-                  aria-label='Default select example'
-                  name='engine'
-                  value={carUpdated.engine}
+                  aria-label="Default select example"
+                  name="engine"
+                  value={engine}
                   onChange={handleChange}
                 >
-                  <option value='Hybrid'>Hybrid</option>
-                  <option value='Automatic'>Automatic</option>
-                  <option value='Manual'>Manual</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Automatic">Automatic</option>
+                  <option value="Manual">Manual</option>
                 </Form.Select>
-                <Button className='button' type='submit'>
+                <Button className="button" type="submit">
                   Edit
                 </Button>
               </Form>
@@ -89,7 +103,7 @@ function CarDetails({ _id, name, brand, engine, color, getCarDetails }) {
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
 
-export default CarDetails
+export default CarDetails;
