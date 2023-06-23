@@ -1,50 +1,50 @@
-import React, { createContext, useEffect, useState } from "react";
-import authService from "../services/auth.service";
+import React, { createContext, useEffect, useState } from 'react'
+import authService from '../services/auth.service'
 
-export const TOKEN_NAME = "authToken";
+const token_name = 'authToken'
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
 export const AuthContextWrapper = ({ children }) => {
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState()
 
   useEffect(() => {
-    authenticate();
-  }, []);
+    authenticate()
+  }, [])
 
   const storeToken = token => {
-    localStorage.setItem(TOKEN_NAME, token);
-  };
+    localStorage.setItem(token_name, token)
+  }
 
   const removeToken = () => {
-    localStorage.removeItem(TOKEN_NAME);
-  };
+    localStorage.removeItem(token_name)
+  }
 
   const logout = () => {
-    setLoading(false);
-    setUser();
-    removeToken();
-  };
+    setLoading(false)
+    setUser()
+    removeToken()
+  }
 
   const authenticate = async () => {
-    const token = localStorage.getItem(TOKEN_NAME);
+    const token = localStorage.getItem(token_name)
     if (!token) {
-      logout();
+      logout()
     }
-    setLoading(true);
+    setLoading(true)
     return authService
       .verify(token)
       .then(user => {
-        setLoading(false);
-        setUser(user);
+        setLoading(false)
+        setUser(user)
       })
       .catch(err => {
-        logout();
-        setError("You are not authenticated!");
-      });
-  };
+        logout()
+        setError('You are not authenticated!')
+      })
+  }
 
   return (
     <AuthContext.Provider
@@ -60,5 +60,5 @@ export const AuthContextWrapper = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

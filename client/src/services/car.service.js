@@ -1,31 +1,30 @@
-import axios from "axios";
-import apiInstace from "./apiInstance";
+import apiInstance from './apiInstance'
 
 class CarService {
   constructor() {
-    this.api = apiInstace;
+    this.api = apiInstance
   }
 
   getAll() {
-    return this.api.get("/cars");
+    return this.api.get('/cars')
   }
 
   getOne(id) {
-    return this.api.get(`/cars/${id}`);
+    return this.api.get(`/cars/${id}`)
   }
 
   create(data) {
-    return this.api.post("/cars", data);
+    return this.api.post('/cars', data)
   }
 
   update(id, data) {
-    return this.api.put(`/cars/${id}`, data);
+    return this.api.put(`/cars/${id}`, data)
   }
 
   delete(id) {
-    return this.api.delete(`/cars/${id}`);
+    return this.api.delete(`/cars/${id}`)
   }
 }
 
-const carService = new CarService();
-export default carService;
+const carService = new CarService()
+export default carService

@@ -1,18 +1,17 @@
-import axios from "axios";
-import { TOKEN_NAME } from "../context/auth.context";
+import axios from 'axios'
 
-const apiInstace = axios.create({
-    baseURL: process.env.REACT_API_URL
-});
+const apiInstance = axios.create({
+  baseURL: process.env.REACT_API_URL
+})
 
-apiInstace.interceptors.request.use(config => {
-  const token = localStorage.getItem(TOKEN_NAME);
+apiInstance.interceptors.request.use(config => {
+  const token = localStorage.getItem('authToken')
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
 
-  return config;
-});
+  return config
+})
 
-export default apiInstace;
+export default apiInstance

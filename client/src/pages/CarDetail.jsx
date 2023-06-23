@@ -1,32 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import carService from '../services/car.service'
 import CarDetails from '../components/CarDetails'
-import { Card, Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap'
 
 function CarDetail() {
-    const { id } = useParams();
-    const [car, setCar] = useState([])
+  const { id } = useParams()
+  const [car, setCar] = useState([])
 
-    const getCarDetails = async () => {
-        try {
-            const res = await carService.getOne(id)
-            setCar(res.data)
-        } catch (error) {
-            console.log(error)
-        }
+  const getCarDetails = async () => {
+    try {
+      const res = await carService.getOne(id)
+      setCar(res.data)
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    useEffect(() => {
-    getCarDetails();
-    }, [id])
+  useEffect(() => {
+    getCarDetails()
+  }, [id])
 
-    return (
-       <Container>
-        {
-            car ? <CarDetails {...car} getCarDetails={getCarDetails}/> : <p>No hay datos...</p>
-        }
-       </Container>
-    )
+  return (
+    <Container>
+      {car ? (
+        <CarDetails {...car} getCarDetails={getCarDetails} />
+      ) : (
+        <p>No hay datos...</p>
+      )}
+    </Container>
+  )
 }
-export default CarDetail;
+export default CarDetail

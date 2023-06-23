@@ -1,16 +1,16 @@
-import apiInstance from "./apiInstance";
+import apiInstance from './apiInstance'
 
 class AuthService {
   constructor() {
-    this.api = apiInstance;
+    this.api = apiInstance
   }
 
   signup(data) {
-    return this.api.post("/auth/signup", data);
+    return this.api.post('/auth/signup', data)
   }
 
   login(data) {
-    return this.api.post(`/auth/login`, data);
+    return this.api.post(`/auth/login`, data)
   }
 
   verify(token) {
@@ -19,10 +19,10 @@ class AuthService {
       // {
       //   headers: { Authorization: `Bearer ${token}` }
       // }
-    );
+    )
   }
 }
 
-const authService = new AuthService();
+const authService = new AuthService()
 
-export default authService;
+export default authService
