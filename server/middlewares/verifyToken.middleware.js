@@ -6,5 +6,4 @@ const isAuthenticated = expressjwt({
   requestProperty: "payload"
  
 });
-
 module.exports = { isAuthenticated };
